@@ -1,6 +1,11 @@
+import Chai from './Chai.jsx';
+
 function App() {
   return (
-    <h1>hello world | chai aur code</h1>
+    <>
+      {/* <h1>hello world | chai aur code</h1> */}
+      <Chai/>
+    </>
   );
 }
 
