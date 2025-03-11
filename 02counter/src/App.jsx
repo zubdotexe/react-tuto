@@ -5,16 +5,27 @@ import './App.css'
 
 function App() {
 
-  let [counter, setCounter] = useState(5);
+  let [counter, setCounter] = useState(10);
 
   const addValue = () => {
-    setCounter(++counter);  // the method takes the new value to updated
-    console.log("value added", counter);
+    if(counter < 20) {
+      setCounter(++counter);  // the method takes the new value to updated
+      console.log("value added", counter);
+    } 
+    else {
+      alert('The value can\'t be greater than 20');
+    }
+
   }
 
   const reduceValue = () => {
-    setCounter(counter - 1);
-    console.log("value reduced", counter);
+    if(counter == 0) {
+      alert('The value can\'t be less than 0');
+    } 
+    else {
+      setCounter(counter - 1);
+      console.log("value reduced", counter);
+    }
   }
 
   return (
