@@ -66,7 +66,7 @@ function App() {
           </button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-[240px_120px] md:grid-cols-[240px_120px_120px] gap-4 text-sm gap-x-2">
+        <div className="grid grid-cols-1 sm:grid-cols-[240px_120px] md:grid-cols-[240px_120px_120px] text-sm gap-x-2">
           <div className="flex items-center gap-x-1">
             <input 
             type="range"
