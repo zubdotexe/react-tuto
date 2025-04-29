@@ -29,7 +29,7 @@ function App() {
   
   useEffect(() => {
     passwordGenerator();
-  }, [length, numAllowed, charAllowed, passwordGenerator])
+  }, [length, numAllowed, charAllowed, passwordGenerator]) // TODO: idk why we sending passwordGenerator as the dependency here
   
   const copyPasswordToClipboard = useCallback(() => {
     passwordRef.current?.select();
@@ -47,7 +47,7 @@ function App() {
   return (
     <>
       <div className='w-full max-w-lg mx-auto shadow-md rounded-lg px-4 py-4 my-8 bg-gray-700 text-orange-600'>
-        <h1 className="text-white text-center my-3">Password Generator</h1>
+        <h1 className="text-white text-center my-3 text-2xl">Password Generator</h1>
         <div className="flex shadow rounded-lg overflow-hidden mb-4 my-5">
           <input 
           type="text"
