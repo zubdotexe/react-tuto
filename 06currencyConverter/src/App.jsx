@@ -1,6 +1,54 @@
-import { useState } from "react";
-import { InputBox } from "./components";
+import { useState, useEffect } from "react";
+import { InputBox, Input } from "./components";
 import useCurrencyInfo from "./hooks/useCurrencyInfo";
+import useCurrency from "./hooks/useCurrency";
+
+// function App() {
+//   const currencyObj = useCurrency("usd");
+//   console.log(currencyObj);
+//   const options = Object.keys(currencyObj);
+
+//   const [from, setFrom] = useState("usd");
+//   const [to, setTo] = useState("bdt");
+//   const [amount, setAmount] = useState();
+//   const [convertedAmount, setConvertedAmount] = useState(to);
+
+//   function convert() {
+//     setConvertedAmount(amount * currencyObj[to])
+//   }
+
+//   return (
+//     <>
+//       <form
+//       onSubmit={e => {
+//         e.preventDefault();
+//         convert();
+//       }}
+//       >
+//         <div>
+//           <Input 
+//           label="From" 
+//           currencyOptions={options} 
+//           amount={amount} 
+//           onAmountChange={(val) => setAmount(val)}
+//           onCurrencyChange={(currency) => setFrom(currency)}
+//           ></Input>
+//         </div>
+//         <div>
+//           <Input 
+//           label="To" 
+//           currencyOptions={options} 
+//           amount={convertedAmount}
+//           onCurrencyChange={(currency) => setTo(currency)}
+//           ></Input>
+//         </div>
+//         <button
+//         type="submit"
+//         >Submit</button>
+//       </form>
+//     </>
+//   );
+// }
 
 function App() {
   const [amount, setAmount] = useState();
@@ -10,7 +58,7 @@ function App() {
 
   const currencyInfo = useCurrencyInfo(from);
 
-  const options = Object.keys(currencyInfo).map(key => key.toUpperCase());
+  const options = Object.keys(currencyInfo) // .map(key => key.toUpperCase());
   console.log('options', options)
 
   const convert = () => {
@@ -21,8 +69,7 @@ function App() {
     setFrom(to);
     setTo(from);
   };
-  
-  
+
   return (
     <div
       className="w-full h-screen flex flex-wrap justify-center items-center bg-cover bg-no-repeat"
@@ -39,12 +86,12 @@ function App() {
             }}
           >
             <div className="w-full mb-1">
-              <InputBox 
+              <InputBox
                 label="From"
                 amount={amount}
                 currencyOptions={options}
-                onCurrencyChange={(currency) => setAmount(amount)}
                 selectCurrency={from}
+                onCurrencyChange={(currency) => setFrom(currency)}
                 onAmountChange={(amount) => setAmount(amount)}
                />
             </div>
@@ -58,21 +105,23 @@ function App() {
               </button>
             </div>
             <div className="w-full mt-1 mb-4">
-              <InputBox 
+              <InputBox
               label="To"
               amount={convertedAmount}
               currencyOptions={options}
-              selectCurrency={to} />
+              selectCurrency={to}
+              onCurrencyChange={(currency) => setTo(currency)} />
             </div>
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white px-4 py-3 rounded-lg"
+              className="w-full bg-blue-600 text-white px-4 py-3 rounded-lg cursor-pointer hover:bg-blue-800"
             >
-              Convert {from.toLocaleUpperCase()} to {to.toLocaleUpperCase()}
+              Convert {from.toUpperCase()} to {to.toUpperCase()}
             </button>
           </form>
         </div>
       </div>
+
     </div>
   );
 }
