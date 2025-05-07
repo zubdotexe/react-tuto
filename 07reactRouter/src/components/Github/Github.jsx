@@ -20,7 +20,7 @@ export default function Github() {
 
     return (
         <>
-            <div className="bg-orange-300 p-5 text-2xl flex gap-4">
+            <div className="bg-orange-700 p-5 text-white text-2xl flex gap-4">
                 <img src={data.avatar_url} alt="Github picture" width={300} />
                 <h1>
                     Github Followers: {data.followers}
