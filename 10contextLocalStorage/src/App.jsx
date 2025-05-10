@@ -8,6 +8,18 @@ function App() {
     setTodos((prev) => [...prev, {id: Date.now(), ...todo}])
   }
 
+  const editTodo = (id, todo) => {
+    setTodos((prev) => prev.map((prevTodo) => {prevTodo.id === id ? todo : prevTodo}))
+  }
+
+  const removeTodo = (id) => {
+    setTodos((prev) => prev.filter((todo) => todo.id !== id))
+  }
+
+  const toggleComplete = (id) => {
+    setTodos((prev) => prev.map((prevTodo) => prevTodo.id === id ? {...prevTodo, completed: !prevTodo.completed} : prevTodo))
+  }
+
   return (
     <TodoContextProvider value={{todos, addTodo, editTodo, removeTodo, toggleComplete}}>
       <div className="bg-[#172842] min-h-screen py-8">
