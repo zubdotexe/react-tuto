@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { TodoContextProvider } from "./contexts/todoContext";
+import { useEffect, useState } from "react";
+import { TodoContextProvider } from "./contexts";
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -19,6 +19,20 @@ function App() {
   const toggleComplete = (id) => {
     setTodos((prev) => prev.map((prevTodo) => prevTodo.id === id ? {...prevTodo, completed: !prevTodo.completed} : prevTodo))
   }
+
+  useEffect(() => {
+    // as long as we are on client side, we can access localStorage, if it's on server then, we can't do anything about it
+
+    const todos = JSON.parse(localStorage.getItem("todos"));
+
+    if (todos && todos.length > 0) {
+      setTodos(todos);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos))
+  }, [todos]);
 
   return (
     <TodoContextProvider value={{todos, addTodo, editTodo, removeTodo, toggleComplete}}>
