@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { TodoContextProvider } from "./contexts";
+import {TodoForm, TodoItem} from "./components";
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -9,7 +10,7 @@ function App() {
   }
 
   const editTodo = (id, todo) => {
-    setTodos((prev) => prev.map((prevTodo) => {prevTodo.id === id ? todo : prevTodo}))
+    setTodos((prev) => prev.map((prevTodo) => {return prevTodo.id === id ? todo : prevTodo}))
   }
 
   const removeTodo = (id) => {
@@ -37,15 +38,24 @@ function App() {
   return (
     <TodoContextProvider value={{todos, addTodo, editTodo, removeTodo, toggleComplete}}>
       <div className="bg-[#172842] min-h-screen py-8">
-        <div className="w-full max-w-2xl mx-auto shadow-md rounded-lg px-4 py-3 text-white">
+        <div className="w-full max-w-2xl mx-auto  rounded-lg px-4 py-3 text-white">
           <h1 className="text-2xl font-bold text-center mb-8 mt-2">
             Manage Your Todos
           </h1>
           <div className="mb-4">
             {/* Todo form goes here */}
+            <TodoForm />
           </div>
           <div className="flex flex-wrap gap-y-3">
             {/*Loop and Add TodoItem here */}
+            {todos.map((todo) => (
+              // key use na korle performance future e onek degrade korbe
+              <div key={todo.id}
+              className="w-full">
+                {/* index dile kichu pitfall ache */}
+                <TodoItem todo={todo} />
+              </div>
+            ))} {/* map er bhitor {} use korle explicitly return kora lagto */}
           </div>
         </div>
       </div>
