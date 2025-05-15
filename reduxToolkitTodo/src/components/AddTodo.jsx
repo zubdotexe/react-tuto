@@ -10,6 +10,7 @@ function AddTodo() {
         e.preventDefault();
         dispatch(addTodo(input));
         setInput("");
+        console.log("we are here inside addtodohandler")
     }
 
     return (
