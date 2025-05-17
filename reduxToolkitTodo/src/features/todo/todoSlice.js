@@ -13,6 +13,10 @@ export const todoSlice = createSlice({
     name: 'todo',
     initialState,
     reducers: {
+        setTodos: (state, action) => {
+            // console.log("setTodos", typeof action.payload, action.payload);
+            state.todos = action.payload;
+        },
         addTodo: (state, action) => {
             const todo = {
                 id: nanoid(),
@@ -33,6 +37,6 @@ export const todoSlice = createSlice({
     }
 })
 
-export const {addTodo, removeTodo, editTodo} = todoSlice.actions; // egular through te state update korbo
+export const {setTodos, addTodo, removeTodo, editTodo} = todoSlice.actions; // egular through te state update korbo
 
 export default todoSlice.reducer; // store je shokol reducer theke value niye nijeke update korbe, shei reducer gular list dite hobe store ke

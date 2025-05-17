@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { editTodo, removeTodo } from "../features/todo/todoSlice";
-import { useState } from "react";
+import { setTodos, editTodo, removeTodo } from "../features/todo/todoSlice";
+import { useEffect, useState } from "react";
 
 function Todos() {
   const todos = useSelector((state) => state.todos);
@@ -18,6 +18,19 @@ function Todos() {
     setEditText("");
     setEditId("");
   };
+
+  useEffect(() => {
+    const storedTodos = JSON.parse(localStorage.getItem("todos"));
+    // console.log("get", typeof storedTodos, storedTodos);
+    if (storedTodos && storedTodos.length > 0) {
+      dispatch(setTodos(storedTodos));
+    }
+  }, [dispatch])
+
+  useEffect(() => {
+    // console.log("set", typeof todos, todos);
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos])
 
   return (
     <>
