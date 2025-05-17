@@ -1,10 +1,12 @@
 import {createSlice, nanoid} from '@reduxjs/toolkit';
 
 const initialState = {
-    todos: [{
-        id: 1,
-        text: "hello world",
-    }]
+    todos: [
+    //     {
+    //     id: 1,
+    //     text: "hello world",
+    // }
+    ]
 }
 
 export const todoSlice = createSlice({
@@ -22,8 +24,11 @@ export const todoSlice = createSlice({
             state.todos = state.todos.filter((todo) => todo.id !== action.payload);
         },
         editTodo: (state, action) => {
-            const todo = state.todos.find(todo => todo.id === action.payload);
-            if (todo) todo.text = action.payload;
+            const {id, text} = action.payload;
+            // console.log(id, text);
+            
+            const todo = state.todos.find(todo => todo.id === id);
+            if (todo) todo.text = text;
         }
     }
 })
