@@ -1,22 +1,55 @@
 import { useDispatch, useSelector } from "react-redux";
-import { removeTodo } from "../features/todo/todoSlice";
+import { editTodo, removeTodo } from "../features/todo/todoSlice";
+import { useState } from "react";
 
 function Todos() {
-    const todos = useSelector(state => state.todos)
-    const dispatch = useDispatch()
+  const todos = useSelector((state) => state.todos);
+  const dispatch = useDispatch();
+  const [editText, setEditText] = useState("");
+  const [editId, setEditId] = useState("");
+
+  const handleEditClick = (todo) => {
+    setEditText(todo.text);
+    setEditId(todo.id);
+  };
+
+  const handleSaveEdit = () => {
+    dispatch(editTodo({id:editId, text: editText}));
+    setEditText("");
+    setEditId("");
+  };
 
   return (
     <>
-    <div className="text-white text-2xl mt-6">Todos</div>
-    <ul className="list-none">
+      <div className="text-white text-2xl mt-6">Todos</div>
+      <ul className="list-none">
         {todos.map((todo) => (
           <li
             className="mt-4 flex justify-between items-center bg-zinc-800 px-4 py-2 rounded"
             key={todo.id}
           >
-            <div className='text-white'>{todo.text}</div>
+            {/* <div className='text-white'>{todo.text}</div> */}
+            <input
+              type="text"
+              className="text-white"
+              value={editId === todo.id ? editText : todo.text}
+              onChange={(e) => setEditText(e.target.value)}
+              disabled={editId != todo.id}
+            />
+            {editId === todo.id ? (
+              <button className="bg-green-300" onClick={() => handleSaveEdit()}>
+                Save
+              </button>
+            ) : (
+              <button
+                className="bg-green-300"
+                onClick={() => handleEditClick(todo)}
+              >
+                Edit
+              </button>
+            )}
             <button
-             onClick={() => dispatch(removeTodo(todo.id))}
+              onClick={() => dispatch(removeTodo(todo.id))}
               className="text-white bg-red-500 border-0 py-1 px-4 focus:outline-none hover:bg-red-600 rounded text-md"
             >
               <svg
@@ -38,7 +71,7 @@ function Todos() {
         ))}
       </ul>
     </>
-  )
+  );
 }
 
 export default Todos;
