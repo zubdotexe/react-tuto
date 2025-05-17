@@ -19,6 +19,13 @@ function Todos() {
     setEditId("");
   };
 
+  const handleEnter = (e) => {
+    // console.log("inside enter func", e.key);
+    if (e.key === "Enter") {
+      handleSaveEdit();
+    }
+  }
+
   useEffect(() => {
     const storedTodos = JSON.parse(localStorage.getItem("todos"));
     // console.log("get", typeof storedTodos, storedTodos);
@@ -48,6 +55,7 @@ function Todos() {
               value={editId === todo.id ? editText : todo.text}
               onChange={(e) => setEditText(e.target.value)}
               disabled={editId != todo.id}
+              onKeyDown={handleEnter} // this is responsible for enabling the Enter key to save my input
             />
             <div className="flex gap-2">
               {editId === todo.id ? (
